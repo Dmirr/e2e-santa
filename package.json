@@ -4,12 +4,24 @@
   "description": "",
   "main": "cypress.config.js",
   "scripts": {
+    "cy:open": "npx cypress open",
     "cy:run": "cypress run"
   },
-  "author": "",
+  "author": "Dmirr",
   "license": "ISC",
   "dependencies": {
     "cypress": "^12.2.0",
-    "@faker-js/faker": "^7.6.0"
+    "npm-install-checks": "^6.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dmirr/e2e-santa.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Dmirr/e2e-santa/issues"
+  },
+  "homepage": "https://github.com/Dmirr/e2e-santa#readme",
+  "devDependencies": {
+    "@faker-js/faker": "^8.0.2"
   }
 }
