@@ -1,0 +1,8 @@
+{
+    "lotteryParticipantName":":nth-child(3) > .frm-wrapper > #input-table-0",
+    "lotteryParticipantEmail": ":nth-child(4) > .frm-wrapper > #input-table-0",
+    "lotteryParticipantName2": ":nth-child(5) #input-table-1",
+    "lotteryParticipantEmail2": ":nth-child(6) #input-table-1",
+    "lotteryParticipantName3": ":nth-child(7) #input-table-2",
+    "lotteryParticipantEmail3": ":nth-child(8) #input-table-2"
+}

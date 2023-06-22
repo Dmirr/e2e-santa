@@ -6,6 +6,7 @@ const invitePage = require("../fixtures/pages/invitePage.json");
 const inviteeBoxPage = require("../fixtures/pages/inviteeBoxPage.json");
 const inviteeDashboardPage = require("../fixtures/pages/inviteeDashboardPage.json");
 const assertionData = require("../fixtures/pages/assertionsData.json");
+const lotteryPage = require("../fixtures/pages/lotteryPage.json");
 import { faker } from "@faker-js/faker";
 beforeEach(() => {
   Cypress.on("uncaught:exception", (err, runnable) => {
@@ -109,11 +110,25 @@ describe("user can create a box and run it", () => {
       });
     cy.clearCookies();
   });
-  // it("user logins and starts lottery", () => {
-  //   cy.visit("/login");
-  //   cy.login(users.userAutor.email, users.userAutor.password);
-  // });
-
+  it.only("user logins and starts lottery", () => {
+    cy.visit("/login");
+    cy.login(users.userAutor.email, users.userAutor.password);
+    cy.get(generalElements.lotteryButton).click();
+    cy.get(generalElements.arrowRight).click();
+    cy.get(lotteryPage.lotteryParticipantName).type(users.user1.name);
+    cy.get(lotteryPage.lotteryParticipantEmail).type(users.user1.email);
+    cy.get(lotteryPage.lotteryParticipantName2).type(users.user2.name);
+    cy.get(lotteryPage.lotteryParticipantEmail2).type(users.user2.email);
+    cy.get(lotteryPage.lotteryParticipantName3).type(users.user3.name);
+    cy.get(lotteryPage.lotteryParticipantEmail3).type(users.user3.email);
+    cy.get(generalElements.arrowRight).click();
+    cy.get(generalElements.arrowRight).click();
+    cy.get(assertionData.lotteryIsDone)
+      .invoke("text")
+      .then((text) => {
+        expect(text).to.contain("Жеребьевка проведена!");
+      });
+  });
   //   after("delete box", () => {
   //     cy.visit("/login");
   //     cy.login(users.userAutor.email, users.userAutor.password);
