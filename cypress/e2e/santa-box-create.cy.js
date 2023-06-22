@@ -34,7 +34,7 @@ describe("user can create a box and run it", () => {
     cy.get(boxPage.currency).select(currency);
     cy.get(generalElements.arrowRight).click();
     cy.get(generalElements.arrowRight).click();
-    cy.get(generalElements.arrowRight).click();
+    cy.get(generalElements.arrowRight).click({ force: true });
     cy.get(dashboardPage.createdBoxName).should("have.text", newBoxName);
     cy.get(assertionData.assertionBoxPage)
       .invoke("text")
@@ -128,7 +128,38 @@ describe("user can create a box and run it", () => {
       .then((text) => {
         expect(text).to.contain("Жеребьевка проведена!");
       });
+    cy.clearCookies();
   });
+  it("partisipants login and chek lottery results", () => {
+    cy.visit("/login");
+    cy.login(users.user1.email, users.user1.password);
+    cy.get(assertionData.lotteryResultPage).click();
+    cy.get(assertionData.lotteryResultMessage)
+      .invoke("text")
+      .then((text) => {
+        expect(text).to.contain("У тебя появился подопечный в коробке");
+      });
+    cy.clearCookies();
+    cy.visit("/login");
+    cy.login(users.user2.email, users.user2.password);
+    cy.get(assertionData.lotteryResultPage).click();
+    cy.get(assertionData.lotteryResultMessage)
+      .invoke("text")
+      .then((text) => {
+        expect(text).to.contain("У тебя появился подопечный в коробке");
+      });
+    cy.clearCookies();
+    cy.visit("/login");
+    cy.login(users.user3.email, users.user3.password);
+    cy.get(assertionData.lotteryResultPage).click();
+    cy.get(assertionData.lotteryResultMessage)
+      .invoke("text")
+      .then((text) => {
+        expect(text).to.contain("У тебя появился подопечный в коробке");
+      });
+    cy.clearCookies();
+  });
+
   //   after("delete box", () => {
   //     cy.visit("/login");
   //     cy.login(users.userAutor.email, users.userAutor.password);

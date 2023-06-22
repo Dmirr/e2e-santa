@@ -1,5 +1,7 @@
 {
     "assertionBoxPage": ".layout-1__header-wrapper-fixed .toggle-menu-item span",
-    "lotteryIsDone": ".picture-notice__title"
+    "lotteryIsDone": ".picture-notice__title",
+    "lotteryResultPage": ".layout-1__header-wrapper-fixed :nth-child(2) > .header-item__text > .txt--med",
+    "lotteryResultMessage": ".notifications-panel"
 
 }
