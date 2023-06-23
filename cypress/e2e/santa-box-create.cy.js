@@ -20,12 +20,22 @@ describe("user can create a box and run it", () => {
   let maxAmount = 50;
   let currency = "Евро";
   let inviteLink;
+  let boxKey;
+  let loginCookie = {
+    Cookie:
+      "_ym_uid=16734548431002114789; _ym_d=1673454843; adtech_uid=eb12ecd9-da63-486d-a791-3be86eeeb88b%3Asanta-secret.ru; top100_id=t1.7627570.2108586738.1680379156247; _ohmybid_cmf=1; last_visit=1687454209642%3A%3A1687461409642; t3_sid_7627570=s1.890954796.1687461409640.1687461412636.9.3; jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQ5MTk3NzksImlhdCI6MTY4NzUzNzUxMSwiZXhwIjoxNjkwMTI5NTExfQ.R-nFjxjp8wYtKPgNAO1bfPPaMiyRPpjAPT324BP-4Lw",
+  };
 
   it("user logins and create a box", () => {
     cy.visit("/login");
     cy.login(users.userAutor.email, users.userAutor.password);
     cy.contains("Создать коробку").click();
     cy.get(boxPage.boxNameField).type(newBoxName);
+    cy.get(boxPage.boxKeyField).then((key) => {
+      // признаю, это я стащил из разбора
+      boxKey = Cypress.$(key).val();
+      cy.log(boxKey);
+    });
     cy.get(generalElements.arrowRight).click();
     cy.get(boxPage.sixthIcon).click();
     cy.get(generalElements.arrowRight).click();
@@ -159,21 +169,31 @@ describe("user can create a box and run it", () => {
       });
     cy.clearCookies();
   });
-
-  //   after("delete box", () => {
-  //     cy.visit("/login");
-  //     cy.login(users.userAutor.email, users.userAutor.password);
-  //     cy.get(
-  //       '.layout-1__header-wrapper-fixed > .layout-1__header > .header > .header__items > .layout-row-start > [href="/account/boxes"] > .header-item > .header-item__text > .txt--med'
-  //     ).click();
-  //     cy.get(":nth-child(1) > a.base--clickable > .user-card").first().click();
-  //     cy.get(
-  //       ".layout-1__header-wrapper-fixed > .layout-1__header-secondary > .header-secondary > .header-secondary__right-item > .toggle-menu-wrapper > .toggle-menu-button > .toggle-menu-button--inner"
-  //     ).click();
-  //     cy.contains("Архивация и удаление").click({ force: true });
-  //     cy.get(":nth-child(2) > .form-page-group__main > .frm-wrapper > .frm").type(
-  //       "Удалить коробку"
-  //     );
-  //     cy.get(".btn-service").click();
-  //   });
+  after("delete box", () => {
+    cy.request({
+      method: "DELETE",
+      headers: loginCookie,
+      url: `/api/box/${boxKey}`,
+    }).then((response) => {
+      expect(response.status).to.equal(200);
+    });
+  });
 });
+
+//   after("delete box", () => {
+//     cy.visit("/login");
+//     cy.login(users.userAutor.email, users.userAutor.password);
+//     cy.get(
+//       '.layout-1__header-wrapper-fixed > .layout-1__header > .header > .header__items > .layout-row-start > [href="/account/boxes"] > .header-item > .header-item__text > .txt--med'
+//     ).click();
+//     cy.get(":nth-child(1) > a.base--clickable > .user-card").first().click();
+//     cy.get(
+//       ".layout-1__header-wrapper-fixed > .layout-1__header-secondary > .header-secondary > .header-secondary__right-item > .toggle-menu-wrapper > .toggle-menu-button > .toggle-menu-button--inner"
+//     ).click();
+//     cy.contains("Архивация и удаление").click({ force: true });
+//     cy.get(":nth-child(2) > .form-page-group__main > .frm-wrapper > .frm").type(
+//       "Удалить коробку"
+//     );
+//     cy.get(".btn-service").click();
+//   });
+//});
