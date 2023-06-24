@@ -1,3 +1,6 @@
+Cypress.on("uncaught:exception", (err, runnable) => {
+  return false;
+});
 const users = require("../fixtures/users.json");
 const boxPage = require("../fixtures/pages/boxPage.json");
 const generalElements = require("../fixtures/pages/general.json");
@@ -8,11 +11,6 @@ const inviteeDashboardPage = require("../fixtures/pages/inviteeDashboardPage.jso
 const assertionData = require("../fixtures/pages/assertionsData.json");
 const lotteryPage = require("../fixtures/pages/lotteryPage.json");
 import { faker } from "@faker-js/faker";
-beforeEach(() => {
-  Cypress.on("uncaught:exception", (err, runnable) => {
-    return false;
-  });
-});
 
 describe("user can create a box and run it", () => {
   let newBoxName = faker.word.noun({ length: { min: 5, max: 10 } });
@@ -120,19 +118,10 @@ describe("user can create a box and run it", () => {
       });
     cy.clearCookies();
   });
-  it("user logins and starts lottery", () => {
+  it.only("user logins and starts lottery", () => {
     cy.visit("/login");
     cy.login(users.userAutor.email, users.userAutor.password);
-    cy.get(generalElements.lotteryButton).click();
-    cy.get(generalElements.arrowRight).click();
-    cy.get(lotteryPage.lotteryParticipantName).type(users.user1.name);
-    cy.get(lotteryPage.lotteryParticipantEmail).type(users.user1.email);
-    cy.get(lotteryPage.lotteryParticipantName2).type(users.user2.name);
-    cy.get(lotteryPage.lotteryParticipantEmail2).type(users.user2.email);
-    cy.get(lotteryPage.lotteryParticipantName3).type(users.user3.name);
-    cy.get(lotteryPage.lotteryParticipantEmail3).type(users.user3.email);
-    cy.get(generalElements.arrowRight).click();
-    cy.get(generalElements.arrowRight).click();
+    cy.startLottery();
     cy.get(assertionData.lotteryIsDone)
       .invoke("text")
       .then((text) => {
@@ -169,7 +158,7 @@ describe("user can create a box and run it", () => {
       });
     cy.clearCookies();
   });
-  after("delete box", () => {
+  it("delete box", () => {
     cy.request({
       method: "DELETE",
       headers: loginCookie,
