@@ -118,7 +118,7 @@ describe("user can create a box and run it", () => {
       });
     cy.clearCookies();
   });
-  it.only("user logins and starts lottery", () => {
+  it("user logins and starts lottery", () => {
     cy.visit("/login");
     cy.login(users.userAutor.email, users.userAutor.password);
     cy.startLottery();
@@ -158,7 +158,7 @@ describe("user can create a box and run it", () => {
       });
     cy.clearCookies();
   });
-  it("delete box", () => {
+  after("delete box", () => {
     cy.request({
       method: "DELETE",
       headers: loginCookie,
