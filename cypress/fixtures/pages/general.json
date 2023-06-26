@@ -1,5 +1,5 @@
 {
   "arrowRight": ".btn-arrow-right",
   "submitButton": ".btn-main",
-  "lotteryButton": "[href='/randomizer'] > .btn-secondary"
+  "startLotteryButton": ".santa-modal_content_buttons > .btn-main"
 }

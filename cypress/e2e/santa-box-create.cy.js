@@ -88,7 +88,7 @@ describe("user can create a box and run it", () => {
     cy.login(users.user2.email, users.user2.password);
     cy.contains("Создать карточку участника").should("exist");
     cy.get(generalElements.submitButton).click();
-    cy.get(generalElements.arrowRight).click();
+    cy.get(generalElements.arrowRight).click({ force: true });
     cy.get(generalElements.arrowRight).click();
     cy.get(inviteeBoxPage.wishesInput).type(wishes);
     cy.get(generalElements.arrowRight).click();
@@ -121,6 +121,7 @@ describe("user can create a box and run it", () => {
   it("user logins and starts lottery", () => {
     cy.visit("/login");
     cy.login(users.userAutor.email, users.userAutor.password);
+    cy.visit(`/box/${boxKey}`);
     cy.startLottery();
     cy.get(assertionData.lotteryIsDone)
       .invoke("text")
@@ -129,7 +130,8 @@ describe("user can create a box and run it", () => {
       });
     cy.clearCookies();
   });
-  it("partisipants login and chek lottery results", () => {
+
+  it("participants login and chek lottery results", () => {
     cy.visit("/login");
     cy.login(users.user1.email, users.user1.password);
     cy.get(assertionData.lotteryResultPage).click();
@@ -168,21 +170,3 @@ describe("user can create a box and run it", () => {
     });
   });
 });
-
-//   after("delete box", () => {
-//     cy.visit("/login");
-//     cy.login(users.userAutor.email, users.userAutor.password);
-//     cy.get(
-//       '.layout-1__header-wrapper-fixed > .layout-1__header > .header > .header__items > .layout-row-start > [href="/account/boxes"] > .header-item > .header-item__text > .txt--med'
-//     ).click();
-//     cy.get(":nth-child(1) > a.base--clickable > .user-card").first().click();
-//     cy.get(
-//       ".layout-1__header-wrapper-fixed > .layout-1__header-secondary > .header-secondary > .header-secondary__right-item > .toggle-menu-wrapper > .toggle-menu-button > .toggle-menu-button--inner"
-//     ).click();
-//     cy.contains("Архивация и удаление").click({ force: true });
-//     cy.get(":nth-child(2) > .form-page-group__main > .frm-wrapper > .frm").type(
-//       "Удалить коробку"
-//     );
-//     cy.get(".btn-service").click();
-//   });
-//});

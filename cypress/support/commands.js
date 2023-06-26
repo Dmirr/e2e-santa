@@ -35,14 +35,7 @@ Cypress.Commands.add("login", (userName, password) => {
   cy.get(generalElements.submitButton).click({ force: true });
 });
 Cypress.Commands.add("startLottery", () => {
-  cy.get(generalElements.lotteryButton).click();
-  cy.get(generalElements.arrowRight).click({ force: true });
-  cy.get(lotteryPage.lotteryParticipantName).type(users.user1.name);
-  cy.get(lotteryPage.lotteryParticipantEmail).type(users.user1.email);
-  cy.get(lotteryPage.lotteryParticipantName2).type(users.user2.name);
-  cy.get(lotteryPage.lotteryParticipantEmail2).type(users.user2.email);
-  cy.get(lotteryPage.lotteryParticipantName3).type(users.user3.name);
-  cy.get(lotteryPage.lotteryParticipantEmail3).type(users.user3.email);
-  cy.get(generalElements.arrowRight).click({ force: true });
-  cy.get(generalElements.arrowRight).click({ force: true });
+  cy.get(boxPage.startLotteryPage).click({ force: true });
+  cy.get(generalElements.submitButton).click();
+  cy.get(generalElements.startLotteryButton).click();
 });
