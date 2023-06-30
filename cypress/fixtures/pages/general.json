@@ -1,5 +1,6 @@
 {
   "arrowRight": ".btn-arrow-right",
   "submitButton": ".btn-main",
-  "startLotteryButton": ".santa-modal_content_buttons > .btn-main"
+  "startLotteryButton": ".santa-modal_content_buttons > .btn-main",
+  "cookie": "_ym_uid=16734548431002114789; _ym_d=1673454843; adtech_uid=eb12ecd9-da63-486d-a791-3be86eeeb88b%3Asanta-secret.ru; top100_id=t1.7627570.2108586738.1680379156247; _ym_isad=2; _ohmybid_cmf=1; last_visit=1688049850756%3A%3A1688057050756; t3_sid_7627570=s1.1125673525.1688057050754.1688057051178.13.2; jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQ5MTk3NzksImlhdCI6MTY4ODA1NzA1OSwiZXhwIjoxNjkwNjQ5MDU5fQ.zzm9mmaLkJ4R5wkSy2IRtbkFD572A76i7-41TJB4p80"
 }

@@ -30,9 +30,7 @@ describe("user can create a box and run it", () => {
     cy.contains("Создать коробку").click();
     cy.get(boxPage.boxNameField).type(newBoxName);
     cy.get(boxPage.boxKeyField).then((key) => {
-      // признаю, это я стащил из разбора
       boxKey = Cypress.$(key).val();
-      cy.log(boxKey);
     });
     cy.get(generalElements.arrowRight).click();
     cy.get(boxPage.sixthIcon).click();
